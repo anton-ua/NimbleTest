@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./TrackerItem.module.css";
 import moment from "moment";
 import { connect } from "react-redux";
-import { pauseTracker } from "../../redux/actions";
+import { pauseTracker, removeTracker } from "../../redux/actions";
 
-const TrackerItem = ({ tracker, pauseTracker }) => {
+const TrackerItem = ({ tracker, pauseTracker, removeTracker }) => {
   const [totalTime, changeTimePassed] = useState(tracker.totalTime);
 
   const calculateTimePassed = () => {
@@ -27,7 +27,7 @@ const TrackerItem = ({ tracker, pauseTracker }) => {
     clearTimeout();
   };
 
-  const handlePause = (e) => {
+  const handlePauseTracker = (e) => {
     const { id } = e.currentTarget;
 
     tracker.startTime ? stopTimeout() : startTimeout();
@@ -35,8 +35,20 @@ const TrackerItem = ({ tracker, pauseTracker }) => {
     pauseTracker({ id, totalTime });
   };
 
+  const handleRemoveTracker = (e) => {
+    const { id } = e.currentTarget;
+    removeTracker({ id });
+  };
+
   return (
-    <li className={styles.item}>
+    <li
+      className={styles.item}
+      style={
+        tracker.startTime
+          ? { backgroundColor: "#ffee99" }
+          : { backgroundColor: "#fff9d6" }
+      }
+    >
       <div
         className={styles.name}
         style={tracker.startTime ? { color: "green" } : { color: "black" }}
@@ -53,7 +65,7 @@ const TrackerItem = ({ tracker, pauseTracker }) => {
         <button
           className={styles.buttonStart}
           id={tracker.id}
-          onClick={handlePause}
+          onClick={handlePauseTracker}
         >
           {tracker.startTime ? (
             <svg
@@ -61,6 +73,7 @@ const TrackerItem = ({ tracker, pauseTracker }) => {
               height='24'
               viewBox='0 0 24 24'
               width='24'
+              fill='green'
             >
               <path d='M0 0h24v24H0z' fill='none' />
               <path d='M9 16h2V8H9v8zm3-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V8h-2v8z' />
@@ -77,7 +90,11 @@ const TrackerItem = ({ tracker, pauseTracker }) => {
             </svg>
           )}
         </button>
-        <button className={styles.buttonDelete}>
+        <button
+          className={styles.buttonDelete}
+          id={tracker.id}
+          onClick={handleRemoveTracker}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             height='24'
@@ -95,6 +112,7 @@ const TrackerItem = ({ tracker, pauseTracker }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   pauseTracker: (id, totalTime) => dispatch(pauseTracker(id, totalTime)),
+  removeTracker: (id) => dispatch(removeTracker(id)),
 });
 
 export default connect(null, mapDispatchToProps)(TrackerItem);

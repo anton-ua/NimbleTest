@@ -12,3 +12,8 @@ export const pauseTracker = ({ id, totalTime }) => ({
   type: "PAUSE_TRACKER",
   payload: { id, totalTime },
 });
+
+export const removeTracker = ({ id }) => ({
+  type: "REMOVE_TRACKER",
+  payload: { id },
+});

@@ -16,7 +16,8 @@ const rootReducer = (state = initialState, action) => {
         }
         return tracker;
       });
-
+    case "REMOVE_TRACKER":
+      return state.filter((tracker) => tracker.id !== action.payload.id);
     default:
       return state;
   }
