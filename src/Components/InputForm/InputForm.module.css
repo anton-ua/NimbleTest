@@ -7,6 +7,7 @@
 .input,
 .button {
   border: 1px solid #000;
+  outline: none;
 }
 
 .input {
@@ -15,7 +16,6 @@
   border-right: none;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  outline: none;
   width: 100%;
 }
 
@@ -30,11 +30,6 @@
   border-bottom-right-radius: 50%;
   cursor: pointer;
   background-color: inherit;
-}
-
-.input:focus,
-.button:focus {
-  outline: none;
 }
 
 .buttonSvg {

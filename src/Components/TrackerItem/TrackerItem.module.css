@@ -1,0 +1,54 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  list-style: none;
+  border-bottom: 1px solid #000;
+  background-color: #fff9d6;
+}
+
+.item:nth-child(1) {
+  border-top: 1px solid #000;
+}
+
+.name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.name,
+.time {
+  font-family: sans-serif;
+  font-size: 18px;
+  padding: 16px;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonStart,
+.buttonDelete {
+  padding: 0 2px;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+}
+
+.buttonStart {
+  outline: none;
+}
+
+.buttonDelete {
+  fill: red;
+  outline-color: red;
+}
+
+.buttonStart:hover,
+.buttonStart:focus {
+  fill: green;
+}
