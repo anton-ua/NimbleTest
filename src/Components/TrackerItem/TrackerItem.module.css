@@ -48,7 +48,6 @@
   outline-color: red;
 }
 
-.buttonStart:hover,
-.buttonStart:focus {
+.buttonStart:hover {
   fill: green;
 }

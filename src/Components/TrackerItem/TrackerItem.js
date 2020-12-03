@@ -1,13 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TrackerItem.module.css";
+import moment from "moment";
+import { connect } from "react-redux";
+import { pauseTracker } from "../../redux/actions";
 
-const TrackerItem = ({ tracker }) => {
+const TrackerItem = ({ tracker, pauseTracker }) => {
+  const [totalTime, changeTimePassed] = useState(tracker.totalTime);
+
+  const calculateTimePassed = () => {
+    return tracker.startTime
+      ? Date.now() - tracker.startTime + tracker.totalTime
+      : tracker.totalTime;
+  };
+  useEffect(() => {
+    startTimeout();
+  });
+
+  const startTimeout = () => {
+    setTimeout(() => {
+      changeTimePassed(calculateTimePassed());
+    }, 1000);
+  };
+
+  const stopTimeout = () => {
+    changeTimePassed(totalTime - 1);
+    clearTimeout();
+  };
+
+  const handlePause = (e) => {
+    const { id } = e.currentTarget;
+
+    tracker.startTime ? stopTimeout() : startTimeout();
+
+    pauseTracker({ id, totalTime });
+  };
+
   return (
-    <li className={styles.item} key={tracker.id}>
-      <div className={styles.name}>{tracker.name}</div>
+    <li className={styles.item}>
+      <div
+        className={styles.name}
+        style={tracker.startTime ? { color: "green" } : { color: "black" }}
+      >
+        {tracker.name}
+      </div>
       <div className={styles.wrap}>
-        <div className={styles.time}>{tracker.startTime}</div>
-        <button className={styles.buttonStart}>
+        <div
+          className={styles.time}
+          style={tracker.startTime ? { color: "green" } : { color: "black" }}
+        >{`${Math.trunc(moment.duration(totalTime).asHours())}:${moment
+          .utc(totalTime)
+          .format("mm:ss")}`}</div>
+        <button
+          className={styles.buttonStart}
+          id={tracker.id}
+          onClick={handlePause}
+        >
           {tracker.startTime ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -46,4 +93,8 @@ const TrackerItem = ({ tracker }) => {
   );
 };
 
-export default TrackerItem;
+const mapDispatchToProps = (dispatch) => ({
+  pauseTracker: (id, totalTime) => dispatch(pauseTracker(id, totalTime)),
+});
+
+export default connect(null, mapDispatchToProps)(TrackerItem);

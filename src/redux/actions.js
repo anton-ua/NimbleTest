@@ -8,7 +8,7 @@ export const addTracker = ({ name, startTime, id }) => ({
   },
 });
 
-export const pauseTracker = (id) => ({
+export const pauseTracker = ({ id, totalTime }) => ({
   type: "PAUSE_TRACKER",
-  payload: id,
+  payload: { id, totalTime },
 });

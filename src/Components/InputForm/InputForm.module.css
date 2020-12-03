@@ -38,8 +38,7 @@
   fill: green;
 }
 
-.buttonSvg:hover,
-.button:focus .buttonSvg {
+.buttonSvg:hover {
   fill: red;
 }
 

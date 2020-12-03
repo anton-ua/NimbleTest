@@ -7,7 +7,9 @@ const TrackerList = ({ trackers }) => {
   return (
     <ul className={styles.list}>
       {trackers.length > 0 &&
-        trackers.map((tracker) => <TrackerItem tracker={tracker} />)}
+        trackers.map((tracker) => (
+          <TrackerItem tracker={tracker} key={tracker.id} />
+        ))}
     </ul>
   );
 };
