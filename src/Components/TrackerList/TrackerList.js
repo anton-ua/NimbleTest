@@ -1,13 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 import TrackerItem from "../TrackerItem/TrackerItem";
 import styles from "./TrackerList.module.css";
 
-const TrackerList = () => {
+const TrackerList = ({ trackers }) => {
   return (
     <ul className={styles.list}>
-      <TrackerItem />
+      {trackers.length > 0 &&
+        trackers.map((tracker) => <TrackerItem tracker={tracker} />)}
     </ul>
   );
 };
 
-export default TrackerList;
+const mapStateToProps = (state) => ({
+  trackers: state.trackers,
+});
+
+export default connect(mapStateToProps)(TrackerList);

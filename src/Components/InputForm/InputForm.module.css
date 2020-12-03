@@ -42,3 +42,9 @@
 .button:focus .buttonSvg {
   fill: red;
 }
+
+@media (max-width: 559px) {
+  .form {
+    margin: 0 10px;
+  }
+} ;

@@ -5,12 +5,12 @@
   height: 50px;
   width: 100%;
   list-style: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #d6d6d6;
   background-color: #fff9d6;
 }
 
 .item:nth-child(1) {
-  border-top: 1px solid #000;
+  border-top: 1px solid#d6d6d6;
 }
 
 .name {

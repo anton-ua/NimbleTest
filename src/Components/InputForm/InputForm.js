@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addTracker } from "../../redux/actions";
 import styles from "./InputForm.module.css";
+import shortid from "shortid";
+import moment from "moment";
 
-const InputForm = () => {
+const InputForm = ({ addTracker }) => {
+  const [name, changeName] = useState("");
+
+  const trackerNameToAdd = (name) =>
+    name
+      ? name
+      : `Tracker created ${moment(Date.now()).format("YYYY-MM-DD, HH:mm:ss")}`;
+
+  const handleChange = ({ target }) => {
+    changeName(target.value);
+  };
+
+  const handleAddTracker = (e) => {
+    e.preventDefault();
+    addTracker({
+      id: shortid.generate(),
+      name: trackerNameToAdd(name),
+      startTime: Date.now(),
+    });
+    changeName("");
+  };
+
   return (
-    <form className={styles.form}>
-      <input className={styles.input} placeholder='Enter tracker name' />
+    <form className={styles.form} onSubmit={handleAddTracker}>
+      <input
+        className={styles.input}
+        placeholder='Enter tracker name'
+        onChange={handleChange}
+        value={name}
+      />
       <button className={styles.button}>
         <svg
           className={styles.buttonSvg}
@@ -19,4 +49,8 @@ const InputForm = () => {
   );
 };
 
-export default InputForm;
+const mapDispatchToProps = (dispatch) => ({
+  addTracker: (name, startTime) => dispatch(addTracker(name, startTime)),
+});
+
+export default connect(null, mapDispatchToProps)(InputForm);

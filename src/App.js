@@ -11,14 +11,14 @@ const App = () => {
           <Header />
         </div>
       </header>
-      <body>
+      <main>
         <div className={styles.container}>
           <InputForm />
         </div>
         <div className={styles.container}>
           <TrackerList />
         </div>
-      </body>
+      </main>
     </div>
   );
 };
