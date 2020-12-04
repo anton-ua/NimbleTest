@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { pauseTracker, removeTracker } from "../../redux/actions";
 
 const TrackerItem = ({ tracker, pauseTracker, removeTracker }) => {
+  console.log(styles);
+
   const [totalTime, changeTimePassed] = useState(tracker.totalTime);
 
   const calculateTimePassed = () => {
@@ -42,7 +44,7 @@ const TrackerItem = ({ tracker, pauseTracker, removeTracker }) => {
 
   return (
     <li
-      className={styles.item}
+      className={styles.listItem}
       style={
         tracker.startTime
           ? { backgroundColor: "#ffee99" }
